@@ -6,7 +6,10 @@ import math
 from geneticalgorithm import geneticalgorithm as ga
 
 
-def f(X):
+def f(X, kwargs):
+    test_kwargs1 = kwargs.get('test_kwargs1')
+    test_kwargs2 = kwargs.get('test_kwargs2')
+    print(test_kwargs1, test_kwargs2)
     dim = len(X)
     OF = 0
     for i in range (0, dim):
@@ -29,7 +32,8 @@ def test_rastrigin():
     varbound = np.array([[-5.12, 5.12]]*2)
 
     model = ga(function=f, dimension=2, variable_type='real',
-            variable_boundaries=varbound, algorithm_parameters=parameters)
+            variable_boundaries=varbound, algorithm_parameters=parameters,
+               test_kwargs1 = 1, test_kwargs2 = 2) #added test code
     model.run()
     assert model.best_function < 1e-6
 

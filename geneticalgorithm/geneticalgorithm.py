@@ -72,7 +72,8 @@ class geneticalgorithm():
                                        'max_iteration_without_improv':None,\
                                        'multiprocessing_ncpus': 1,\
                                        'multiprocessing_engine': None,\
-                                       }):
+                                       },
+                 **kwargs):
 
 
         '''
@@ -133,6 +134,7 @@ class geneticalgorithm():
         assert (callable(function)),"function must be callable"
 
         self.f=function
+        self.kwargs = kwargs
         #############################################################
         #dimension
 
@@ -572,7 +574,10 @@ class geneticalgorithm():
         return x
 ###############################################################################
     def evaluate(self):
-        return self.f(self.temp)
+        if not self.kwargs: #is to determine if kwarg exists
+            return self.f(self.temp)
+        else:
+            return self.f(self.temp, self.kwargs)
 ###############################################################################
     def sim(self,X):
         self.temp=X.copy()
